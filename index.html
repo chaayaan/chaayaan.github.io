@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chayan - Network Engineer</title>
+    <title>Chayan Dev - Network Engineer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -85,6 +85,16 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
         }
 
         /* Hero Section */
@@ -409,6 +419,17 @@
             gap: 0.5rem;
         }
 
+        .edu-card h4, .cert-card h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .edu-card p, .cert-card p {
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+
         /* Contact Section */
         .contact-container {
             max-width: 900px;
@@ -528,6 +549,7 @@
             margin-bottom: 2rem;
             font-weight: 500;
         }
+
         .footer {
             background: #333;
             color: white;
@@ -554,8 +576,24 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 2rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
             }
 
             .hero h1 {
@@ -580,6 +618,14 @@
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Scroll animations */
@@ -593,14 +639,51 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Loading animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <nav class="nav">
             <div class="logo">Chayan Dev</div>
-            <ul class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -616,7 +699,7 @@
         <div class="hero-content">
             <h1>Chayan Dev</h1>
             <p class="subtitle">CSE Undergraduate | Aspiring Network Engineer</p>
-            <p class="description">CCNA in Progress • Building the Future of Network Infrastructure</p>
+            <p class="description">CCNA Course Complete • MTCNA in Progress • Building Advanced Network Infrastructures</p>
             <div class="cta-buttons">
                 <a href="#about" class="btn btn-primary">
                     <i class="fas fa-user"></i> About Me
@@ -639,8 +722,8 @@
             </div>
             <div class="about-text">
                 <h3>Career Objective</h3>
-                <p>Motivated and detail-oriented Computer Science undergraduate seeking a career in computer networking. Currently pursuing the Cisco Certified Network Associate (CCNA) certification to gain deep technical knowledge and practical skills in routing, switching, and network security.</p>
-                <p>Passionate about building efficient, scalable, and secure network infrastructures that drive business success and technological innovation.</p>
+                <p>Motivated and detail-oriented Computer Science undergraduate with comprehensive hands-on experience in network engineering. Having completed the Cisco Certified Network Associate (CCNA) course, I possess deep technical knowledge and practical skills in routing, switching, BGP, OSPF, and network security.</p>
+                <p>Passionate about building efficient, scalable, and secure network infrastructures. Proven experience in implementing complex multi-router topologies, ISP network simulations, and advanced security configurations using industry-standard tools and protocols.</p>
                 
                 <div class="contact-info">
                     <a href="mailto:chayan.dev.works@gmail.com" class="contact-item">
@@ -664,38 +747,41 @@
             <div class="skill-category">
                 <h3><i class="fas fa-route"></i> Networking Fundamentals</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">IP Addressing</span>
+                    <span class="skill-tag">IP Addressing (IPv4)</span>
                     <span class="skill-tag">Subnetting</span>
                     <span class="skill-tag">VLSM</span>
                     <span class="skill-tag">CIDR</span>
+                    <span class="skill-tag">DHCP</span>
                 </div>
             </div>
             <div class="skill-category">
                 <h3><i class="fas fa-sitemap"></i> Routing & Switching</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Static Routing</span>
-                    <span class="skill-tag">RIP</span>
+                    <span class="skill-tag">VLANs & Trunking</span>
+                    <span class="skill-tag">Spanning Tree Protocol (STP)</span>
+                    <span class="skill-tag">EtherChannel</span>
                     <span class="skill-tag">OSPF</span>
-                    <span class="skill-tag">VLANs</span>
-                    <span class="skill-tag">Trunking</span>
-                    <span class="skill-tag">Inter-VLAN Routing</span>
+                    <span class="skill-tag">BGP (Internal & External)</span>
                 </div>
             </div>
             <div class="skill-category">
-                <h3><i class="fas fa-shield-alt"></i> Network Security</h3>
+                <h3><i class="fas fa-shield-alt"></i> Network Security & Management</h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Access Control Lists</span>
-                    <span class="skill-tag">NAT Configuration</span>
-                    <span class="skill-tag">Network Troubleshooting</span>
+                    <span class="skill-tag">Access Control Lists (ACLs)</span>
+                    <span class="skill-tag">NAT (Static, Dynamic, PAT)</span>
+                    <span class="skill-tag">SSH Configuration</span>
+                    <span class="skill-tag">Telnet Management</span>
+                    <span class="skill-tag">RSA Key Generation</span>
                 </div>
             </div>
             <div class="skill-category">
-                <h3><i class="fas fa-tools"></i> Tools & Technologies</h3>
+                <h3><i class="fas fa-tools"></i> Tools & Troubleshooting</h3>
                 <div class="skill-tags">
                     <span class="skill-tag">Cisco CLI</span>
-                    <span class="skill-tag">Packet Tracer</span>
-                    <span class="skill-tag">Wireshark</span>
-                    <span class="skill-tag">Ping/Traceroute</span>
+                    <span class="skill-tag">Cisco Packet Tracer</span>
+                    <span class="skill-tag">Ping & Traceroute</span>
+                    <span class="skill-tag">Show Commands</span>
+                    <span class="skill-tag">Network Monitoring</span>
                 </div>
             </div>
         </div>
@@ -707,65 +793,84 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-header">
-                    <h3><i class="fas fa-calculator"></i> Subnetting Exercises</h3>
+                    <h3><i class="fas fa-project-diagram"></i> Multi-Router & Switch Topology Lab</h3>
                 </div>
                 <div class="project-content">
                     <ul>
-                        <li>Practiced CIDR and VLSM techniques</li>
-                        <li>Calculated efficient subnet ranges</li>
-                        <li>Optimized IP address allocation</li>
+                        <li>Implemented VLANs and trunking across multiple switches</li>
+                        <li>Configured root switch with STP priority settings</li>
+                        <li>Deployed OSPF for internal routing across multiple routers</li>
+                        <li>Tested redundancy and failover scenarios</li>
                     </ul>
                 </div>
             </div>
 
             <div class="project-card">
                 <div class="project-header">
-                    <h3><i class="fas fa-project-diagram"></i> VLAN Configuration Lab</h3>
+                    <h3><i class="fas fa-globe"></i> ISP Network Simulation Lab</h3>
                 </div>
                 <div class="project-content">
                     <ul>
-                        <li>Set up VLANs on Cisco switches</li>
-                        <li>Enabled trunking between switches</li>
-                        <li>Configured inter-VLAN communication</li>
+                        <li>Configured BGP between multi-AS networks</li>
+                        <li>Implemented NAT and public IP advertisement</li>
+                        <li>Enabled secure SSH remote access across network</li>
+                        <li>Simulated real-world ISP infrastructure</li>
                     </ul>
                 </div>
             </div>
 
             <div class="project-card">
                 <div class="project-header">
-                    <h3><i class="fas fa-route"></i> Static and Dynamic Routing</h3>
+                    <h3><i class="fas fa-search"></i> Network Troubleshooting Exercises</h3>
                 </div>
                 <div class="project-content">
                     <ul>
-                        <li>Configured routing tables in routers</li>
-                        <li>Implemented RIP protocol</li>
-                        <li>Verified network reachability via CLI</li>
+                        <li>Tested connectivity with ping & traceroute</li>
+                        <li>Verified ACL rules and NAT translations</li>
+                        <li>Diagnosed routing failures and network outages</li>
+                        <li>Validated redundancy and routing reliability</li>
                     </ul>
                 </div>
             </div>
 
             <div class="project-card">
                 <div class="project-header">
-                    <h3><i class="fas fa-lock"></i> ACL Implementation</h3>
+                    <h3><i class="fas fa-shield-alt"></i> Security & Management Labs</h3>
                 </div>
                 <div class="project-content">
                     <ul>
-                        <li>Configured standard and extended ACLs</li>
-                        <li>Controlled traffic between subnets</li>
-                        <li>Enhanced network security protocols</li>
+                        <li>Generated RSA keys for secure device authentication</li>
+                        <li>Configured SSH for encrypted remote management</li>
+                        <li>Set up local user accounts with role-based access</li>
+                        <li>Implemented comprehensive ACL security policies</li>
                     </ul>
                 </div>
             </div>
 
             <div class="project-card">
                 <div class="project-header">
-                    <h3><i class="fas fa-exchange-alt"></i> NAT Configuration</h3>
+                    <h3><i class="fas fa-cogs"></i> Advanced Protocol Implementation</h3>
                 </div>
                 <div class="project-content">
                     <ul>
-                        <li>Simulated IP translation scenarios</li>
-                        <li>Configured private/public environments</li>
-                        <li>Optimized address translation rules</li>
+                        <li>Configured EtherChannel for link aggregation</li>
+                        <li>Deployed Spanning Tree Protocol optimizations</li>
+                        <li>Implemented static, dynamic, and PAT NAT scenarios</li>
+                        <li>Integrated DHCP services across network segments</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3><i class="fas fa-chart-line"></i> Portfolio Highlight</h3>
+                </div>
+                <div class="project-content">
+                    <ul>
+                        <li>Successfully integrated VLANs, OSPF, and BGP in complex topologies</li>
+                        <li>Demonstrated hands-on NAT, ACL, and SSH configuration expertise</li>
+                        <li>Proven experience in network monitoring and management</li>
+                        <li>Extensive use of Cisco Packet Tracer for simulation and testing</li>
                     </ul>
                 </div>
             </div>
@@ -787,13 +892,17 @@
                 <h3><i class="fas fa-certificate"></i> Certifications</h3>
                 <div style="margin-bottom: 1.5rem;">
                     <h4>Cisco Certified Network Associate (CCNA)</h4>
-                    <p><em>In Progress</em></p>
+                    <p><em>Course Complete</em></p>
                     <p>Comprehensive networking certification covering routing, switching, and network security fundamentals.</p>
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <h4>MikroTik Certified Network Associate (MTCNA)</h4>
                     <p><em>In Progress</em></p>
                     <p>MikroTik RouterOS configuration, basic routing, wireless, and firewall management certification.</p>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                    <h4>Key Focus Areas:</h4>
+                    <p style="font-size: 0.95rem; color: #666;">• Networking Fundamentals<br>• Routing & Switching<br>• Network Security<br>• Troubleshooting & Management</p>
                 </div>
             </div>
         </div>
@@ -854,23 +963,62 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="social-links">
-            <a href="mailto:chayan.dev.works@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a href="https://linkedin.com/in/chayandev" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:chayan.dev.works@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/chayandev" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/chayandev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
         </div>
-        <p>&copy; 2025 Chayan. Building the future of network infrastructure.</p>
+        <p>&copy; 2025 Chayan Dev. Building the future of network infrastructure.</p>
         <p><strong>Languages:</strong> English (Professional) • Bengali (Native)</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #aaa;">
+            Specializing in CCNA • OSPF • BGP • Network Security • Cisco Technologies
+        </p>
     </footer>
 
     <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            const loading = document.getElementById('loading');
+            setTimeout(() => {
+                loading.style.opacity = '0';
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -920,7 +1068,139 @@
                     clearInterval(typeInterval);
                 }
             }, 100);
-        }, 1000);
+        }, 1500);
+
+        // Animate skill tags on hover
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.boxShadow = '0 5px 15px rgba(102, 126, 234, 0.3)';
+            });
+            
+            tag.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add particle effect to hero section
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = 'rgba(255, 255, 255, 0.6)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            particle.style.zIndex = '1';
+            
+            const hero = document.querySelector('.hero');
+            hero.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0) translateX(0)', opacity: 1 },
+                { transform: `translateY(-100vh) translateX(${Math.random() * 200 - 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => particle.remove();
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.style.position = 'fixed';
+        progressBar.style.top = '0';
+        progressBar.style.left = '0';
+        progressBar.style.width = '0%';
+        progressBar.style.height = '3px';
+        progressBar.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        progressBar.style.zIndex = '9999';
+        progressBar.style.transition = 'width 0.1s ease';
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrollProgress = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+            progressBar.style.width = scrollProgress + '%';
+        });
+
+        // Add active navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add CSS for active navigation
+        const style = document.createElement('style');
+        style.textContent = `
+            .nav-links a.active {
+                color: #667eea !important;
+            }
+            .nav-links a.active::after {
+                width: 100% !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Animate numbers/stats if any are added later
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Add Easter egg - Konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 3000);
+                konamiCode = [];
+            }
+        });
+
+        console.log('🌐 Welcome to Chayan Dev\'s Portfolio!');
+        console.log('🔧 Built with modern web technologies');
+        console.log('📧 Contact: chayan.dev.works@gmail.com');
+        console.log('🔗 LinkedIn: https://linkedin.com/in/chayandev');
     </script>
 </body>
 </html>
