@@ -301,7 +301,10 @@
   /* ── MOBILE ── */
   @media (max-width: 768px) {
     #hero { min-height: auto; padding-bottom: 4rem; }
-    .hero-visual-col { display: none; }
+    .hero-visual-col { display: block !important; }
+    .hero-card { max-width: 340px; margin: 0 auto; }
+    .badge-1 { top: -12px; right: 0; font-size: 0.72rem; padding: 6px 10px; }
+    .badge-2 { bottom: -12px; left: 0; font-size: 0.72rem; padding: 6px 10px; }
     .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
     .exp-item::after, .exp-dot { display: none; }
     .exp-date { text-align: left; }
@@ -356,7 +359,7 @@
       </div>
 
       <!-- Right -->
-      <div class="col-lg-5 offset-lg-1 hero-visual-col">
+      <div class="col-lg-5 offset-lg-1 hero-visual-col mt-5 mt-lg-0">
         <div class="position-relative">
           <div class="floating-badge badge-1">📱 Android + Kotlin</div>
           <div class="hero-card">
@@ -514,7 +517,7 @@
         <div class="project-card">
           <div class="project-emoji">💎</div>
           <h3>Tunchmark — Jewellery Lab System</h3>
-          <p>Full reporting and verification platform for a live jewellery business. Handles tunch calculations, QR-coded hallmark reports, billing module. Deployed on cPanel.</p>
+          <p>Full reporting and verification platform for a live jewellery business. Handles tunch calculations, QR-coded hallmark reports and billing module. Deployed on cPanel.</p>
           <div class="project-stack">
             <span class="stack-tag">PHP</span><span class="stack-tag">MySQL</span>
             <span class="stack-tag">Bootstrap</span><span class="stack-tag">cPanel</span>
