@@ -86,7 +86,7 @@ Stamasoft Technologies · Chittagong
 ## 📂 Projects I've Built
 
 ### 💎 Tunchmark — Jewellery Lab Reporting System
-A full reporting and verification platform for a live jewellery business. It handles tunch calculations, hallmark reports with QR codes, billing, a gold ledger, and a হালখাতা (halkhata) module — all deployed on cPanel.
+A full reporting and verification platform for a live jewellery business. It handles tunch calculations, hallmark reports with QR codes, billing module — all deployed on cPanel.
 
 `PHP` `MySQL` `Bootstrap` `cPanel`
 
